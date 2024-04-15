@@ -1,4 +1,8 @@
 <?php
+<<<<<<< HEAD
+=======
+
+>>>>>>> f6a82e1 (percobaan)
 /**
  * CodeIgniter
  *
@@ -35,7 +39,11 @@
  * @since	Version 1.0.0
  * @filesource
  */
+<<<<<<< HEAD
 defined('BASEPATH') OR exit('No direct script access allowed');
+=======
+defined('BASEPATH') or exit('No direct script access allowed');
+>>>>>>> f6a82e1 (percobaan)
 
 /**
  * URI Class
@@ -48,7 +56,13 @@ defined('BASEPATH') OR exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/libraries/uri.html
  */
+<<<<<<< HEAD
 class CI_URI {
+=======
+#[\AllowDynamicProperties]
+class CI_URI
+{
+>>>>>>> f6a82e1 (percobaan)
 
 	/**
 	 * List of cached URI segments
@@ -98,6 +112,7 @@ class CI_URI {
 	 */
 	public function __construct()
 	{
+<<<<<<< HEAD
 		$this->config =& load_class('Config', 'core');
 
 		// If query strings are enabled, we don't need to parse any segments.
@@ -118,6 +133,23 @@ class CI_URI {
 
 				switch ($protocol)
 				{
+=======
+		$this->config = &load_class('Config', 'core');
+
+		// If query strings are enabled, we don't need to parse any segments.
+		// However, they don't make sense under CLI.
+		if (is_cli() or $this->config->item('enable_query_strings') !== TRUE) {
+			$this->_permitted_uri_chars = $this->config->item('permitted_uri_chars');
+
+			// If it's a CLI request, ignore the configuration
+			if (is_cli()) {
+				$uri = $this->_parse_argv();
+			} else {
+				$protocol = $this->config->item('uri_protocol');
+				empty($protocol) && $protocol = 'REQUEST_URI';
+
+				switch ($protocol) {
+>>>>>>> f6a82e1 (percobaan)
 					case 'AUTO': // For BC purposes only
 					case 'REQUEST_URI':
 						$uri = $this->_parse_request_uri();
@@ -153,6 +185,7 @@ class CI_URI {
 		// Filter out control characters and trim slashes
 		$this->uri_string = trim(remove_invisible_characters($str, FALSE), '/');
 
+<<<<<<< HEAD
 		if ($this->uri_string !== '')
 		{
 			// Remove the URL suffix, if present
@@ -162,20 +195,36 @@ class CI_URI {
 
 				if (substr($this->uri_string, -$slen) === $suffix)
 				{
+=======
+		if ($this->uri_string !== '') {
+			// Remove the URL suffix, if present
+			if (($suffix = (string) $this->config->item('url_suffix')) !== '') {
+				$slen = strlen($suffix);
+
+				if (substr($this->uri_string, -$slen) === $suffix) {
+>>>>>>> f6a82e1 (percobaan)
 					$this->uri_string = substr($this->uri_string, 0, -$slen);
 				}
 			}
 
 			$this->segments[0] = NULL;
 			// Populate the segments array
+<<<<<<< HEAD
 			foreach (explode('/', trim($this->uri_string, '/')) as $val)
 			{
+=======
+			foreach (explode('/', trim($this->uri_string, '/')) as $val) {
+>>>>>>> f6a82e1 (percobaan)
 				$val = trim($val);
 				// Filter segments for security
 				$this->filter_uri($val);
 
+<<<<<<< HEAD
 				if ($val !== '')
 				{
+=======
+				if ($val !== '') {
+>>>>>>> f6a82e1 (percobaan)
 					$this->segments[] = $val;
 				}
 			}
@@ -196,13 +245,18 @@ class CI_URI {
 	 */
 	protected function _parse_request_uri()
 	{
+<<<<<<< HEAD
 		if ( ! isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME']))
 		{
+=======
+		if (!isset($_SERVER['REQUEST_URI'], $_SERVER['SCRIPT_NAME'])) {
+>>>>>>> f6a82e1 (percobaan)
 			return '';
 		}
 
 		// parse_url() returns false if no host is present, but the path or query string
 		// contains a colon followed by a number
+<<<<<<< HEAD
 		$uri = parse_url('http://dummy'.$_SERVER['REQUEST_URI']);
 		$query = isset($uri['query']) ? $uri['query'] : '';
 		$uri = isset($uri['path']) ? $uri['path'] : '';
@@ -215,12 +269,23 @@ class CI_URI {
 			}
 			elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0)
 			{
+=======
+		$uri = parse_url('http://dummy' . $_SERVER['REQUEST_URI']);
+		$query = isset($uri['query']) ? $uri['query'] : '';
+		$uri = isset($uri['path']) ? $uri['path'] : '';
+
+		if (isset($_SERVER['SCRIPT_NAME'][0])) {
+			if (strpos($uri, $_SERVER['SCRIPT_NAME']) === 0) {
+				$uri = (string) substr($uri, strlen($_SERVER['SCRIPT_NAME']));
+			} elseif (strpos($uri, dirname($_SERVER['SCRIPT_NAME'])) === 0) {
+>>>>>>> f6a82e1 (percobaan)
 				$uri = (string) substr($uri, strlen(dirname($_SERVER['SCRIPT_NAME'])));
 			}
 		}
 
 		// This section ensures that even on servers that require the URI to be in the query string (Nginx) a correct
 		// URI is found, and also fixes the QUERY_STRING server var and $_GET array.
+<<<<<<< HEAD
 		if (trim($uri, '/') === '' && strncmp($query, '/', 1) === 0)
 		{
 			$query = explode('?', $query, 2);
@@ -229,13 +294,24 @@ class CI_URI {
 		}
 		else
 		{
+=======
+		if (trim($uri, '/') === '' && strncmp($query, '/', 1) === 0) {
+			$query = explode('?', $query, 2);
+			$uri = $query[0];
+			$_SERVER['QUERY_STRING'] = isset($query[1]) ? $query[1] : '';
+		} else {
+>>>>>>> f6a82e1 (percobaan)
 			$_SERVER['QUERY_STRING'] = $query;
 		}
 
 		parse_str($_SERVER['QUERY_STRING'], $_GET);
 
+<<<<<<< HEAD
 		if ($uri === '/' OR $uri === '')
 		{
+=======
+		if ($uri === '/' or $uri === '') {
+>>>>>>> f6a82e1 (percobaan)
 			return '/';
 		}
 
@@ -256,12 +332,18 @@ class CI_URI {
 	{
 		$uri = isset($_SERVER['QUERY_STRING']) ? $_SERVER['QUERY_STRING'] : @getenv('QUERY_STRING');
 
+<<<<<<< HEAD
 		if (trim($uri, '/') === '')
 		{
 			return '';
 		}
 		elseif (strncmp($uri, '/', 1) === 0)
 		{
+=======
+		if (trim($uri, '/') === '') {
+			return '';
+		} elseif (strncmp($uri, '/', 1) === 0) {
+>>>>>>> f6a82e1 (percobaan)
 			$uri = explode('?', $uri, 2);
 			$_SERVER['QUERY_STRING'] = isset($uri[1]) ? $uri[1] : '';
 			$uri = $uri[0];
@@ -301,10 +383,15 @@ class CI_URI {
 	{
 		$uris = array();
 		$tok = strtok($uri, '/');
+<<<<<<< HEAD
 		while ($tok !== FALSE)
 		{
 			if (( ! empty($tok) OR $tok === '0') && $tok !== '..')
 			{
+=======
+		while ($tok !== FALSE) {
+			if ((!empty($tok) or $tok === '0') && $tok !== '..') {
+>>>>>>> f6a82e1 (percobaan)
 				$uris[] = $tok;
 			}
 			$tok = strtok('/');
@@ -325,8 +412,12 @@ class CI_URI {
 	 */
 	public function filter_uri(&$str)
 	{
+<<<<<<< HEAD
 		if ( ! empty($str) && ! empty($this->_permitted_uri_chars) && ! preg_match('/^['.$this->_permitted_uri_chars.']+$/i'.(UTF8_ENABLED ? 'u' : ''), $str))
 		{
+=======
+		if (!empty($str) && !empty($this->_permitted_uri_chars) && !preg_match('/^[' . $this->_permitted_uri_chars . ']+$/i' . (UTF8_ENABLED ? 'u' : ''), $str)) {
+>>>>>>> f6a82e1 (percobaan)
 			show_error('The URI you submitted has disallowed characters.', 400);
 		}
 	}
@@ -427,6 +518,7 @@ class CI_URI {
 	 */
 	protected function _uri_to_assoc($n = 3, $default = array(), $which = 'segment')
 	{
+<<<<<<< HEAD
 		if ( ! is_numeric($n))
 		{
 			return $default;
@@ -434,14 +526,25 @@ class CI_URI {
 
 		if (isset($this->keyval[$which], $this->keyval[$which][$n]))
 		{
+=======
+		if (!is_numeric($n)) {
+			return $default;
+		}
+
+		if (isset($this->keyval[$which], $this->keyval[$which][$n])) {
+>>>>>>> f6a82e1 (percobaan)
 			return $this->keyval[$which][$n];
 		}
 
 		$total_segments = "total_{$which}s";
 		$segment_array = "{$which}_array";
 
+<<<<<<< HEAD
 		if ($this->$total_segments() < $n)
 		{
+=======
+		if ($this->$total_segments() < $n) {
+>>>>>>> f6a82e1 (percobaan)
 			return (count($default) === 0)
 				? array()
 				: array_fill_keys($default, NULL);
@@ -451,6 +554,7 @@ class CI_URI {
 		$i = 0;
 		$lastval = '';
 		$retval = array();
+<<<<<<< HEAD
 		foreach ($segments as $seg)
 		{
 			if ($i % 2)
@@ -459,6 +563,12 @@ class CI_URI {
 			}
 			else
 			{
+=======
+		foreach ($segments as $seg) {
+			if ($i % 2) {
+				$retval[$lastval] = $seg;
+			} else {
+>>>>>>> f6a82e1 (percobaan)
 				$retval[$seg] = NULL;
 				$lastval = $seg;
 			}
@@ -466,19 +576,29 @@ class CI_URI {
 			$i++;
 		}
 
+<<<<<<< HEAD
 		if (count($default) > 0)
 		{
 			foreach ($default as $val)
 			{
 				if ( ! array_key_exists($val, $retval))
 				{
+=======
+		if (count($default) > 0) {
+			foreach ($default as $val) {
+				if (!array_key_exists($val, $retval)) {
+>>>>>>> f6a82e1 (percobaan)
 					$retval[$val] = NULL;
 				}
 			}
 		}
 
 		// Cache the array for reuse
+<<<<<<< HEAD
 		isset($this->keyval[$which]) OR $this->keyval[$which] = array();
+=======
+		isset($this->keyval[$which]) or $this->keyval[$which] = array();
+>>>>>>> f6a82e1 (percobaan)
 		$this->keyval[$which][$n] = $retval;
 		return $retval;
 	}
@@ -496,8 +616,12 @@ class CI_URI {
 	public function assoc_to_uri($array)
 	{
 		$temp = array();
+<<<<<<< HEAD
 		foreach ((array) $array as $key => $val)
 		{
+=======
+		foreach ((array) $array as $key => $val) {
+>>>>>>> f6a82e1 (percobaan)
 			$temp[] = $key;
 			$temp[] = $val;
 		}
@@ -556,6 +680,7 @@ class CI_URI {
 	{
 		$leading = $trailing = '/';
 
+<<<<<<< HEAD
 		if ($where === 'trailing')
 		{
 			$leading	= '';
@@ -566,6 +691,15 @@ class CI_URI {
 		}
 
 		return $leading.$this->$which($n).$trailing;
+=======
+		if ($where === 'trailing') {
+			$leading	= '';
+		} elseif ($where === 'leading') {
+			$trailing	= '';
+		}
+
+		return $leading . $this->$which($n) . $trailing;
+>>>>>>> f6a82e1 (percobaan)
 	}
 
 	// --------------------------------------------------------------------
@@ -637,7 +771,12 @@ class CI_URI {
 	 */
 	public function ruri_string()
 	{
+<<<<<<< HEAD
 		return ltrim(load_class('Router', 'core')->directory, '/').implode('/', $this->rsegments);
 	}
 
+=======
+		return ltrim(load_class('Router', 'core')->directory, '/') . implode('/', $this->rsegments);
+	}
+>>>>>>> f6a82e1 (percobaan)
 }
