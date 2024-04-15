@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> f6a82e1 (percobaan)
 /**
  * CodeIgniter
  *
@@ -39,11 +36,7 @@
  * @since	Version 3.0.0
  * @filesource
  */
-<<<<<<< HEAD
-defined('BASEPATH') OR exit('No direct script access allowed');
-=======
 defined('BASEPATH') or exit('No direct script access allowed');
->>>>>>> f6a82e1 (percobaan)
 
 /**
  * CodeIgniter Session Driver Class
@@ -54,12 +47,8 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author	Andrey Andreev
  * @link	https://codeigniter.com/user_guide/libraries/sessions.html
  */
-<<<<<<< HEAD
-abstract class CI_Session_driver implements SessionHandlerInterface {
-=======
 abstract class CI_Session_driver implements SessionHandlerInterface
 {
->>>>>>> f6a82e1 (percobaan)
 
 	protected $_config;
 
@@ -109,24 +98,12 @@ abstract class CI_Session_driver implements SessionHandlerInterface
 	 */
 	public function __construct(&$params)
 	{
-<<<<<<< HEAD
-		$this->_config =& $params;
-
-		if (is_php('7'))
-		{
-			$this->_success = TRUE;
-			$this->_failure = FALSE;
-		}
-		else
-		{
-=======
 		$this->_config = &$params;
 
 		if (is_php('7')) {
 			$this->_success = TRUE;
 			$this->_failure = FALSE;
 		} else {
->>>>>>> f6a82e1 (percobaan)
 			$this->_success = 0;
 			$this->_failure = -1;
 		}
@@ -143,12 +120,7 @@ abstract class CI_Session_driver implements SessionHandlerInterface
 	 */
 	public function php5_validate_id()
 	{
-<<<<<<< HEAD
-		if (isset($_COOKIE[$this->_config['cookie_name']]) && ! $this->validateSessionId($_COOKIE[$this->_config['cookie_name']]))
-		{
-=======
 		if (isset($_COOKIE[$this->_config['cookie_name']]) && !$this->validateSessionId($_COOKIE[$this->_config['cookie_name']])) {
->>>>>>> f6a82e1 (percobaan)
 			unset($_COOKIE[$this->_config['cookie_name']]);
 		}
 	}
@@ -203,12 +175,7 @@ abstract class CI_Session_driver implements SessionHandlerInterface
 	 */
 	protected function _release_lock()
 	{
-<<<<<<< HEAD
-		if ($this->_lock)
-		{
-=======
 		if ($this->_lock) {
->>>>>>> f6a82e1 (percobaan)
 			$this->_lock = FALSE;
 		}
 
