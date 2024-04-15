@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> f6a82e1 (percobaan)
 /**
  * CodeIgniter
  *
@@ -38,13 +35,8 @@
  * @link	https://codeigniter.com
  * @since	Version 3.0.0
  * @filesource
-<<<<<<< HEAD
-*/
-defined('BASEPATH') OR exit('No direct script access allowed');
-=======
  */
 defined('BASEPATH') or exit('No direct script access allowed');
->>>>>>> f6a82e1 (percobaan)
 
 /**
  * CodeIgniter Session Files Driver
@@ -55,12 +47,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author	Andrey Andreev
  * @link	https://codeigniter.com/user_guide/libraries/sessions.html
  */
-<<<<<<< HEAD
-class CI_Session_files_driver extends CI_Session_driver implements SessionHandlerInterface {
-=======
+#[\AllowDynamicProperties]
 class CI_Session_files_driver extends CI_Session_driver implements SessionHandlerInterface
 {
->>>>>>> f6a82e1 (percobaan)
 
 	/**
 	 * Save path
@@ -116,31 +105,17 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	{
 		parent::__construct($params);
 
-<<<<<<< HEAD
-		if (isset($this->_config['save_path']))
-		{
-			$this->_config['save_path'] = rtrim($this->_config['save_path'], '/\\');
-			ini_set('session.save_path', $this->_config['save_path']);
-		}
-		else
-		{
-=======
 		if (isset($this->_config['save_path'])) {
 			$this->_config['save_path'] = rtrim($this->_config['save_path'], '/\\');
 			ini_set('session.save_path', $this->_config['save_path']);
 		} else {
->>>>>>> f6a82e1 (percobaan)
 			log_message('debug', 'Session: "sess_save_path" is empty; using "session.save_path" value from php.ini.');
 			$this->_config['save_path'] = rtrim(ini_get('session.save_path'), '/\\');
 		}
 
 		$this->_sid_regexp = $this->_config['_sid_regexp'];
 
-<<<<<<< HEAD
-		isset(self::$func_overload) OR self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
-=======
 		isset(self::$func_overload) or self::$func_overload = (extension_loaded('mbstring') && ini_get('mbstring.func_overload'));
->>>>>>> f6a82e1 (percobaan)
 	}
 
 	// ------------------------------------------------------------------------
@@ -154,21 +129,6 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$name		Session cookie name
 	 * @return	bool
 	 */
-<<<<<<< HEAD
-	public function open($save_path, $name)
-	{
-		if ( ! is_dir($save_path))
-		{
-			if ( ! mkdir($save_path, 0700, TRUE))
-			{
-				log_message('error', "Session: Configured save path '".$this->_config['save_path']."' is not a directory, doesn't exist or cannot be created.");
-				return $this->_failure;
-			}
-		}
-		elseif ( ! is_writable($save_path))
-		{
-			log_message('error', "Session: Configured save path '".$this->_config['save_path']."' is not writable by the PHP process.");
-=======
 	#[\ReturnTypeWillChange]
 	public function open($save_path, $name)
 	{
@@ -179,20 +139,13 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 			}
 		} elseif (!is_writable($save_path)) {
 			log_message('error', "Session: Configured save path '" . $this->_config['save_path'] . "' is not writable by the PHP process.");
->>>>>>> f6a82e1 (percobaan)
 			return $this->_failure;
 		}
 
 		$this->_config['save_path'] = $save_path;
-<<<<<<< HEAD
-		$this->_file_path = $this->_config['save_path'].DIRECTORY_SEPARATOR
-			.$name // we'll use the session cookie name as a prefix to avoid collisions
-			.($this->_config['match_ip'] ? md5($_SERVER['REMOTE_ADDR']) : '');
-=======
 		$this->_file_path = $this->_config['save_path'] . DIRECTORY_SEPARATOR
 			. $name // we'll use the session cookie name as a prefix to avoid collisions
 			. ($this->_config['match_ip'] ? md5($_SERVER['REMOTE_ADDR']) : '');
->>>>>>> f6a82e1 (percobaan)
 
 		$this->php5_validate_id();
 
@@ -209,29 +162,11 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$session_id	Session ID
 	 * @return	string	Serialized session data
 	 */
-<<<<<<< HEAD
-=======
 	#[\ReturnTypeWillChange]
->>>>>>> f6a82e1 (percobaan)
 	public function read($session_id)
 	{
 		// This might seem weird, but PHP 5.6 introduces session_reset(),
 		// which re-reads session data
-<<<<<<< HEAD
-		if ($this->_file_handle === NULL)
-		{
-			$this->_file_new = ! file_exists($this->_file_path.$session_id);
-
-			if (($this->_file_handle = fopen($this->_file_path.$session_id, 'c+b')) === FALSE)
-			{
-				log_message('error', "Session: Unable to open file '".$this->_file_path.$session_id."'.");
-				return $this->_failure;
-			}
-
-			if (flock($this->_file_handle, LOCK_EX) === FALSE)
-			{
-				log_message('error', "Session: Unable to obtain lock for file '".$this->_file_path.$session_id."'.");
-=======
 		if ($this->_file_handle === NULL) {
 			$this->_file_new = !file_exists($this->_file_path . $session_id);
 
@@ -242,7 +177,6 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 
 			if (flock($this->_file_handle, LOCK_EX) === FALSE) {
 				log_message('error', "Session: Unable to obtain lock for file '" . $this->_file_path . $session_id . "'.");
->>>>>>> f6a82e1 (percobaan)
 				fclose($this->_file_handle);
 				$this->_file_handle = NULL;
 				return $this->_failure;
@@ -251,45 +185,23 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 			// Needed by write() to detect session_regenerate_id() calls
 			$this->_session_id = $session_id;
 
-<<<<<<< HEAD
-			if ($this->_file_new)
-			{
-				chmod($this->_file_path.$session_id, 0600);
-=======
 			if ($this->_file_new) {
 				chmod($this->_file_path . $session_id, 0600);
->>>>>>> f6a82e1 (percobaan)
 				$this->_fingerprint = md5('');
 				return '';
 			}
 		}
 		// We shouldn't need this, but apparently we do ...
 		// See https://github.com/bcit-ci/CodeIgniter/issues/4039
-<<<<<<< HEAD
-		elseif ($this->_file_handle === FALSE)
-		{
-			return $this->_failure;
-		}
-		else
-		{
-=======
 		elseif ($this->_file_handle === FALSE) {
 			return $this->_failure;
 		} else {
->>>>>>> f6a82e1 (percobaan)
 			rewind($this->_file_handle);
 		}
 
 		$session_data = '';
-<<<<<<< HEAD
-		for ($read = 0, $length = filesize($this->_file_path.$session_id); $read < $length; $read += self::strlen($buffer))
-		{
-			if (($buffer = fread($this->_file_handle, $length - $read)) === FALSE)
-			{
-=======
 		for ($read = 0, $length = filesize($this->_file_path . $session_id); $read < $length; $read += self::strlen($buffer)) {
 			if (($buffer = fread($this->_file_handle, $length - $read)) === FALSE) {
->>>>>>> f6a82e1 (percobaan)
 				break;
 			}
 
@@ -311,28 +223,11 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$session_data	Serialized session data
 	 * @return	bool
 	 */
-<<<<<<< HEAD
-=======
 	#[\ReturnTypeWillChange]
->>>>>>> f6a82e1 (percobaan)
 	public function write($session_id, $session_data)
 	{
 		// If the two IDs don't match, we have a session_regenerate_id() call
 		// and we need to close the old handle and open a new one
-<<<<<<< HEAD
-		if ($session_id !== $this->_session_id && ($this->close() === $this->_failure OR $this->read($session_id) === $this->_failure))
-		{
-			return $this->_failure;
-		}
-
-		if ( ! is_resource($this->_file_handle))
-		{
-			return $this->_failure;
-		}
-		elseif ($this->_fingerprint === md5($session_data))
-		{
-			return ( ! $this->_file_new && ! touch($this->_file_path.$session_id))
-=======
 		if ($session_id !== $this->_session_id && ($this->close() === $this->_failure or $this->read($session_id) === $this->_failure)) {
 			return $this->_failure;
 		}
@@ -341,43 +236,23 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 			return $this->_failure;
 		} elseif ($this->_fingerprint === md5($session_data)) {
 			return (!$this->_file_new && !touch($this->_file_path . $session_id))
->>>>>>> f6a82e1 (percobaan)
 				? $this->_failure
 				: $this->_success;
 		}
 
-<<<<<<< HEAD
-		if ( ! $this->_file_new)
-		{
-=======
 		if (!$this->_file_new) {
->>>>>>> f6a82e1 (percobaan)
 			ftruncate($this->_file_handle, 0);
 			rewind($this->_file_handle);
 		}
 
-<<<<<<< HEAD
-		if (($length = strlen($session_data)) > 0)
-		{
-			for ($written = 0; $written < $length; $written += $result)
-			{
-				if (($result = fwrite($this->_file_handle, substr($session_data, $written))) === FALSE)
-				{
-=======
 		if (($length = strlen($session_data)) > 0) {
 			for ($written = 0; $written < $length; $written += $result) {
 				if (($result = fwrite($this->_file_handle, substr($session_data, $written))) === FALSE) {
->>>>>>> f6a82e1 (percobaan)
 					break;
 				}
 			}
 
-<<<<<<< HEAD
-			if ( ! is_int($result))
-			{
-=======
 			if (!is_int($result)) {
->>>>>>> f6a82e1 (percobaan)
 				$this->_fingerprint = md5(substr($session_data, 0, $written));
 				log_message('error', 'Session: Unable to write data.');
 				return $this->_failure;
@@ -397,17 +272,10 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 *
 	 * @return	bool
 	 */
-<<<<<<< HEAD
-	public function close()
-	{
-		if (is_resource($this->_file_handle))
-		{
-=======
 	#[\ReturnTypeWillChange]
 	public function close()
 	{
 		if (is_resource($this->_file_handle)) {
->>>>>>> f6a82e1 (percobaan)
 			flock($this->_file_handle, LOCK_UN);
 			fclose($this->_file_handle);
 
@@ -427,16 +295,6 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	string	$session_id	Session ID
 	 * @return	bool
 	 */
-<<<<<<< HEAD
-	public function destroy($session_id)
-	{
-		if ($this->close() === $this->_success)
-		{
-			if (file_exists($this->_file_path.$session_id))
-			{
-				$this->_cookie_destroy();
-				return unlink($this->_file_path.$session_id)
-=======
 	#[\ReturnTypeWillChange]
 	public function destroy($session_id)
 	{
@@ -444,28 +302,16 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 			if (file_exists($this->_file_path . $session_id)) {
 				$this->_cookie_destroy();
 				return unlink($this->_file_path . $session_id)
->>>>>>> f6a82e1 (percobaan)
 					? $this->_success
 					: $this->_failure;
 			}
 
 			return $this->_success;
-<<<<<<< HEAD
-		}
-		elseif ($this->_file_path !== NULL)
-		{
-			clearstatcache();
-			if (file_exists($this->_file_path.$session_id))
-			{
-				$this->_cookie_destroy();
-				return unlink($this->_file_path.$session_id)
-=======
 		} elseif ($this->_file_path !== NULL) {
 			clearstatcache();
 			if (file_exists($this->_file_path . $session_id)) {
 				$this->_cookie_destroy();
 				return unlink($this->_file_path . $session_id)
->>>>>>> f6a82e1 (percobaan)
 					? $this->_success
 					: $this->_failure;
 			}
@@ -486,19 +332,11 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 * @param	int 	$maxlifetime	Maximum lifetime of sessions
 	 * @return	bool
 	 */
-<<<<<<< HEAD
-	public function gc($maxlifetime)
-	{
-		if ( ! is_dir($this->_config['save_path']) OR ($directory = opendir($this->_config['save_path'])) === FALSE)
-		{
-			log_message('debug', "Session: Garbage collector couldn't list files under directory '".$this->_config['save_path']."'.");
-=======
 	#[\ReturnTypeWillChange]
 	public function gc($maxlifetime)
 	{
 		if (!is_dir($this->_config['save_path']) or ($directory = opendir($this->_config['save_path'])) === FALSE) {
 			log_message('debug', "Session: Garbage collector couldn't list files under directory '" . $this->_config['save_path'] . "'.");
->>>>>>> f6a82e1 (percobaan)
 			return $this->_failure;
 		}
 
@@ -509,24 +347,6 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 			: '';
 
 		$pattern = sprintf(
-<<<<<<< HEAD
-			'#\A%s'.$pattern.$this->_sid_regexp.'\z#',
-			preg_quote($this->_config['cookie_name'])
-		);
-
-		while (($file = readdir($directory)) !== FALSE)
-		{
-			// If the filename doesn't match this pattern, it's either not a session file or is not ours
-			if ( ! preg_match($pattern, $file)
-				OR ! is_file($this->_config['save_path'].DIRECTORY_SEPARATOR.$file)
-				OR ($mtime = filemtime($this->_config['save_path'].DIRECTORY_SEPARATOR.$file)) === FALSE
-				OR $mtime > $ts)
-			{
-				continue;
-			}
-
-			unlink($this->_config['save_path'].DIRECTORY_SEPARATOR.$file);
-=======
 			'#\A%s' . $pattern . $this->_sid_regexp . '\z#',
 			preg_quote($this->_config['cookie_name'])
 		);
@@ -543,7 +363,6 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 			}
 
 			unlink($this->_config['save_path'] . DIRECTORY_SEPARATOR . $file);
->>>>>>> f6a82e1 (percobaan)
 		}
 
 		closedir($directory);
@@ -564,13 +383,8 @@ class CI_Session_files_driver extends CI_Session_driver implements SessionHandle
 	 */
 	public function validateSessionId($id)
 	{
-<<<<<<< HEAD
-		$result = is_file($this->_file_path.$id);
-		clearstatcache(TRUE, $this->_file_path.$id);
-=======
 		$result = is_file($this->_file_path . $id);
 		clearstatcache(TRUE, $this->_file_path . $id);
->>>>>>> f6a82e1 (percobaan)
 		return $result;
 	}
 

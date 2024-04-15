@@ -1,8 +1,5 @@
 <?php
-<<<<<<< HEAD
-=======
 
->>>>>>> f6a82e1 (percobaan)
 /**
  * CodeIgniter
  *
@@ -39,11 +36,7 @@
  * @since	Version 1.0.0
  * @filesource
  */
-<<<<<<< HEAD
-defined('BASEPATH') OR exit('No direct script access allowed');
-=======
 defined('BASEPATH') or exit('No direct script access allowed');
->>>>>>> f6a82e1 (percobaan)
 
 /**
  * Application Controller Class
@@ -57,13 +50,9 @@ defined('BASEPATH') or exit('No direct script access allowed');
  * @author		EllisLab Dev Team
  * @link		https://codeigniter.com/user_guide/general/controllers.html
  */
-<<<<<<< HEAD
-class CI_Controller {
-=======
 #[\AllowDynamicProperties]
 class CI_Controller
 {
->>>>>>> f6a82e1 (percobaan)
 
 	/**
 	 * Reference to the CI singleton
@@ -86,29 +75,16 @@ class CI_Controller
 	 */
 	public function __construct()
 	{
-<<<<<<< HEAD
-		self::$instance =& $this;
-=======
 		self::$instance = &$this;
->>>>>>> f6a82e1 (percobaan)
 
 		// Assign all the class objects that were instantiated by the
 		// bootstrap file (CodeIgniter.php) to local class variables
 		// so that CI can run as one big super object.
-<<<<<<< HEAD
-		foreach (is_loaded() as $var => $class)
-		{
-			$this->$var =& load_class($class);
-		}
-
-		$this->load =& load_class('Loader', 'core');
-=======
 		foreach (is_loaded() as $var => $class) {
 			$this->$var = &load_class($class);
 		}
 
 		$this->load = &load_class('Loader', 'core');
->>>>>>> f6a82e1 (percobaan)
 		$this->load->initialize();
 		log_message('info', 'Controller Class Initialized');
 	}
@@ -125,8 +101,4 @@ class CI_Controller
 	{
 		return self::$instance;
 	}
-<<<<<<< HEAD
-
-=======
->>>>>>> f6a82e1 (percobaan)
 }
